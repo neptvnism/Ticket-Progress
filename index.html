@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Counter Widget</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .widget {
+            background-color: beige;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .progress {
+            height: 20px;
+            border-radius: 10px;
+            background-color: orange;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: turquoise;
+            width: 0;
+            transition: width 0.5s;
+        }
+        .prize-image {
+            width: 80px;
+            animation: float 3s ease-in-out infinite, wiggle 0.5s ease-in-out infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <h1>🎟️ Ticket Counter</h1>
+        <p>You have: <span id="currentTickets">0</span> tickets</p>
+        <p>Your goal: <span id="goalTickets">10</span> tickets</p>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <img src="https://hackclub.com/arcade/prizes.png" alt="Prize" class="prize-image">
+    </div>
+    <script>
+        const currentTickets = 0; // Update this with your current tickets
+        const goalTickets = 10; // Update this with your goal tickets
+
+        document.getElementById('currentTickets').innerText = currentTickets;
+        document.getElementById('goalTickets').innerText = goalTickets;
+
+        function updateProgress() {
+            const percentage = (currentTickets / goalTickets) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
