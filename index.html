@@ -10,11 +10,11 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            background-color: beige;
             font-family: Arial, sans-serif;
         }
         .widget {
-            background-color: beige;
+            background-color: white;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
@@ -24,19 +24,19 @@
         .progress {
             height: 20px;
             border-radius: 10px;
-            background-color: orange;
+            background-color: #FE5B02;
             margin: 10px 0;
             position: relative;
             overflow: hidden;
         }
         .progress-bar {
             height: 100%;
-            background-color: turquoise;
+            background-color: #09AEB4;
             width: 0;
             transition: width 0.5s;
         }
         .prize-image {
-            width: 80px;
+            width: 120px;
             animation: float 3s ease-in-out infinite, wiggle 0.5s ease-in-out infinite alternate;
         }
         @keyframes float {
@@ -48,31 +48,78 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(5deg); }
         }
+        input {
+            padding: 10px;
+            width: 60%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #09AEB4;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #FE5B02;
+        }
     </style>
 </head>
 <body>
-    <div class="widget">
-        <h1>🎟️ Ticket Counter</h1>
-        <p>You have: <span id="currentTickets">0</span> tickets</p>
-        <p>Your goal: <span id="goalTickets">10</span> tickets</p>
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <img src="https://hackclub.com/arcade/prizes.png" alt="Prize" class="prize-image">
+
+<div class="widget">
+    <h1>🎟️ Ticket Counter</h1>
+    <p>You have: <span id="currentTickets">0</span> tickets</p>
+    <p>Your goal: <span id="goalTickets">10</span> tickets</p>
+    <input type="number" id="ticketInput" placeholder="Enter tickets">
+    <input type="number" id="goalInput" placeholder="Enter goal">
+    <button onclick="updateTickets()">Update Tickets</button>
+    <button onclick="updateGoal()">Update Goal</button>
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-    <script>
-        const currentTickets = 0; // Update this with your current tickets
-        const goalTickets = 10; // Update this with your goal tickets
+    <img src="https://hackclub.com/arcade/prizes.png" alt="Prize" class="prize-image">
+</div>
 
-        document.getElementById('currentTickets').innerText = currentTickets;
-        document.getElementById('goalTickets').innerText = goalTickets;
+<script>
+    let currentTickets = 0; // Initial tickets
+    let goalTickets = 10; // Initial goal
 
-        function updateProgress() {
-            const percentage = (currentTickets / goalTickets) * 100;
-            document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('currentTickets').innerText = currentTickets;
+    document.getElementById('goalTickets').innerText = goalTickets;
+
+    function updateProgress() {
+        const percentage = (currentTickets / goalTickets) * 100;
+        document.getElementById('progressBar').style.width = percentage + '%';
+    }
+
+    function updateTickets() {
+        const inputTickets = parseInt(document.getElementById('ticketInput').value, 10);
+        if (!isNaN(inputTickets) && inputTickets >= 0) {
+            currentTickets = inputTickets;
+            document.getElementById('currentTickets').innerText = currentTickets;
+            updateProgress();
+        } else {
+            alert('Please enter a valid number of tickets.');
         }
+    }
 
-        updateProgress();
-    </script>
+    function updateGoal() {
+        const inputGoal = parseInt(document.getElementById('goalInput').value, 10);
+        if (!isNaN(inputGoal) && inputGoal > 0) {
+            goalTickets = inputGoal;
+            document.getElementById('goalTickets').innerText = goalTickets;
+            updateProgress();
+        } else {
+            alert('Please enter a valid goal.');
+        }
+    }
+
+    updateProgress();
+</script>
+
 </body>
 </html>
